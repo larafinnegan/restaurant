@@ -1,6 +1,5 @@
 require 'rails_helper'
 require 'spec_helper'
-require 'bigdecimal'
 
 RSpec.describe Item, type: :model do
   
