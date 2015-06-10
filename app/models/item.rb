@@ -1,4 +1,8 @@
 class Item < ActiveRecord::Base
+
+  has_many :items_categories
+  has_many :categories, -> { uniq }, through: :items_categories
+
   validate :decimal_places
   validates :title, presence: true, uniqueness: true
   validates :description, presence: true
