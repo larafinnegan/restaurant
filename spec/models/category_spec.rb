@@ -10,4 +10,9 @@ RSpec.describe Category, type: :model do
   it "has a name" do 
     expect(FactoryGirl.build(:category, name: "   ")).not_to be_valid
   end
+
+  it "has a unique name" do
+    cat = FactoryGirl.create(:category)
+    expect(FactoryGirl.build(:category, name: cat.name)).not_to be_valid
+  end
 end
