@@ -4,7 +4,7 @@ require 'spec_helper'
 RSpec.describe Item, type: :model do
   
   it "has a valid factory" do 
-    expect(FactoryGirl.build(:item)).to be_valid
+    expect(FactoryGirl.create(:item)).to be_valid
   end
 
   it "has a title that isn't blank" do 
@@ -28,8 +28,8 @@ RSpec.describe Item, type: :model do
   end
 
    it "has a unique title" do
-      new_item = FactoryGirl.create(:item)
-      expect(FactoryGirl.build(:item, title: new_item.title)).not_to be_valid
+      FactoryGirl.create(:item, title: "New Title")
+      expect(FactoryGirl.build(:item, title: "New Title")).not_to be_valid
   end
 
   it "price cannot be larger than 999.99" do
@@ -39,4 +39,9 @@ RSpec.describe Item, type: :model do
    it "cannot have a price with more than 2 decimal places" do
       expect(FactoryGirl.build(:item, price: 2.345)).not_to be_valid
   end
+
+  it "has at least one category" do
+    expect(FactoryGirl.build(:item, categories: [])).not_to be_valid
+  end
+
 end

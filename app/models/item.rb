@@ -1,7 +1,7 @@
 class Item < ActiveRecord::Base
 
-  has_many :items_categories
-  has_many :categories, -> { uniq }, through: :items_categories
+  has_many :categorizations
+  has_many :categories, -> { uniq }, through: :categorizations
 
 
   validate :decimal_places
