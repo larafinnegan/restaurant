@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
                               format: { with: /@/ },
                               uniqueness: { case_sensitive: false }
   has_secure_password
+  validates :password, presence: true, length: { minimum: 6 }
 
   def display_name_is_not_blank
     errors.add(:display_name, 'Display name cannot be an empty string') if self.display_name && self.display_name.blank? 

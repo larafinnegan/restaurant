@@ -20,7 +20,6 @@ RSpec.describe Category, type: :model do
     i = FactoryGirl.create(:item)
     cat = FactoryGirl.create(:category)
     cat.items << i
-    p cat.items
     expect(cat).to be_valid
   end
 end

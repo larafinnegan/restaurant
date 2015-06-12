@@ -39,10 +39,28 @@ RSpec.describe User, type: :model do
   end
 
    it "has an email address containing an @ sign" do 
-    expect(FactoryGirl.build(:user, email: "sdfdsfds")).not_to be_valid
+    expect(FactoryGirl.build(:user, email: "     ")).not_to be_valid
   end
 
   it "has an email address less than 256 characters" do 
     expect(FactoryGirl.build(:user, email: "s@" + ("a" * 254))).not_to be_valid
+  end
+
+  it "converts email addresses to downcase" do 
+    person = FactoryGirl.create(:user, email: "ExAMPle@ExamPle.com")
+    expect(person.email).to eql("example@example.com")
+  end
+
+  it "doesn't allow duplicate email addresses" do 
+    FactoryGirl.create(:user, email: "ExAMPle@ExamPle.com")
+    expect(FactoryGirl.build(:user, email: "example@example.com")).not_to be_valid
+  end
+
+   it "has a password" do 
+    expect(FactoryGirl.build(:user, password: "      ", password_confirmation: "      ")).not_to be_valid
+  end
+
+   it "has a minimum password length of 6" do 
+    expect(FactoryGirl.build(:user, password: "12345", password_confirmation: "12345")).not_to be_valid
   end
 end
