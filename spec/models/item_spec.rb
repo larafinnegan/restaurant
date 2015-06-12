@@ -44,4 +44,13 @@ RSpec.describe Item, type: :model do
     expect(FactoryGirl.build(:item, categories: [])).not_to be_valid
   end
 
+   it "is not retired by default" do
+    new_item = FactoryGirl.create(:item)
+    expect(new_item.retired).to be false
+  end
+
+   it "cannot have a blank retired field" do
+      expect(FactoryGirl.build(:item, retired: nil)).not_to be_valid
+  end
+
 end

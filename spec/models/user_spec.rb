@@ -68,4 +68,8 @@ RSpec.describe User, type: :model do
     person = FactoryGirl.create(:user)
     expect(person.admin).to be false
   end
+
+   it "cannot have a blank admin field" do 
+    expect(FactoryGirl.build(:user, admin: nil)).not_to be_valid
+  end
 end
