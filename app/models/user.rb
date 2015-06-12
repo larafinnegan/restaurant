@@ -3,9 +3,13 @@ class User < ActiveRecord::Base
   before_save { self.email = email.downcase }
   validates :first_name, :last_name, presence: true, length: { maximum: 20 }
   validates :display_name, allow_nil: true, length: { in: 2..32 }
-  EMAIL_REGEX = /^(|(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})$/i
+  validate :display_name_is_not_blank
   validates :email, presence: true, length: { maximum: 255 },
-                              format: { with: EMAIL_REGEX },
+                              format: { with: /@/ },
                               uniqueness: { case_sensitive: false }
   has_secure_password
+
+  def display_name_is_not_blank
+    errors.add(:display_name, 'Display name cannot be an empty string') if self.display_name && self.display_name.blank? 
+  end
 end
