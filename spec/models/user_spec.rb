@@ -63,4 +63,9 @@ RSpec.describe User, type: :model do
    it "has a minimum password length of 6" do 
     expect(FactoryGirl.build(:user, password: "12345", password_confirmation: "12345")).not_to be_valid
   end
+
+  it "defaults to not being an admin" do 
+    person = FactoryGirl.create(:user)
+    expect(person.admin).to be false
+  end
 end
