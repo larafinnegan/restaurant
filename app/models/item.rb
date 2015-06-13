@@ -2,6 +2,7 @@ class Item < ActiveRecord::Base
 
   has_many :categorizations
   has_many :categories, -> { uniq }, through: :categorizations
+  has_many :order_details
 
   validate :decimal_places
   validates :title, presence: true, uniqueness: true
